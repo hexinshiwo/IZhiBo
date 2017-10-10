@@ -35,9 +35,11 @@ public class LoginActivity extends AppCompatActivity implements LoginAndRegister
     private void initView() {
         accountEdit = (EditText) findViewById(R.id.edit_account);
         passwordEdit = (EditText) findViewById(R.id.edit_password);
+        loginAndRegisterPresenter = new LoginAndRegisterPresenter(this);
+        loginAndRegisterPresenter.getUserInfoFromCache(this);
+        accountEdit.setText(loginAndRegisterPresenter.getUserInfoModle().getUserAccount());
         loginBtn = (Button) findViewById(R.id.btn_go_login);
         registerBtn = (Button) findViewById(R.id.btn_go_register);
-        loginAndRegisterPresenter = new LoginAndRegisterPresenter(this);
         mStrAccount = accountEdit.getText().toString();
         mStrPassword = passwordEdit.getText().toString();
         loginBtn.setOnClickListener(this);
@@ -45,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAndRegister
     }
 
     private void saveUserInfo() {
-        loginAndRegisterPresenter.saveUserInfo(mStrAccount);
+        loginAndRegisterPresenter.saveUserInfoToCache(mStrAccount,this);
     }
 
     @Override

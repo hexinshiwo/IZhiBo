@@ -15,4 +15,14 @@ public class UserInfoModle {
 
     private String userAccount;
 
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    private int roomNumber;
+
 }
