@@ -16,16 +16,19 @@ import com.tencent.livesdk.ILVLiveRoomOption;
 
 import izhibo.uestc.com.izhibo_and.R;
 import izhibo.uestc.com.izhibo_and.modle.Constants;
+import izhibo.uestc.com.izhibo_and.presenter.IOnlinePresenter;
+import izhibo.uestc.com.izhibo_and.uiinterface.IOnlineView;
 import izhibo.uestc.com.izhibo_and.widget.CommonUtils;
 
 /**
  * Created by dongfanghong on 2017/10/9.
  */
 
-public class IOnLiveActivity extends AppCompatActivity implements View.OnClickListener {
+public class IOnLiveActivity extends AppCompatActivity implements View.OnClickListener,IOnlineView {
     private AVRootView avRootView;
     private Button createRoomBtn;
     private EditText roomNumberEdit;
+    private IOnlinePresenter iOnlinePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class IOnLiveActivity extends AppCompatActivity implements View.OnClickLi
         createRoomBtn = (Button) findViewById(R.id.btn_go_iOnLive);
         roomNumberEdit = (EditText) findViewById(R.id.edit_room_number);
         ILVLiveManager.getInstance().setAvVideoView(avRootView);
+        iOnlinePresenter=new IOnlinePresenter(this);
         avRootView.setAutoOrientation(false);
         //打开摄像头预览
         avRootView.setSubCreatedListener(new AVRootView.onSubViewCreatedListener() {
@@ -72,7 +76,7 @@ public class IOnLiveActivity extends AppCompatActivity implements View.OnClickLi
                 option, new ILiveCallBack() {
                     @Override
                     public void onSuccess(Object data) {
-                        afterCreate();
+                        afterCreate(roomId);
                     }
 
                     @Override
@@ -86,9 +90,16 @@ public class IOnLiveActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
     }
+    //保存相关数据
+    private void afterCreate(int roomNumber) {
+   iOnlinePresenter.saveRoomNumberData(roomNumber);
 
-    private void afterCreate() {
+    }
 
-
+    @Override
+    public void changeUiStatue() {
+        roomNumberEdit.setEnabled(false);
+        createRoomBtn.setVisibility(View.INVISIBLE);
+       //ui状态的改变
     }
 }

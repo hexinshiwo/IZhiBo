@@ -1,5 +1,7 @@
 package izhibo.uestc.com.izhibo_and.module;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import izhibo.uestc.com.izhibo_and.modle.UserInfoModle;
@@ -10,6 +12,7 @@ import izhibo.uestc.com.izhibo_and.modle.UserInfoModle;
 @Module
 public class UserInfoModule {
     @Provides
+    @Singleton
     public UserInfoModle providerUserInfo(){
         return new UserInfoModle();
     }

@@ -6,8 +6,9 @@ import android.content.SharedPreferences;
 import com.tencent.ilivesdk.ILiveCallBack;
 import com.tencent.ilivesdk.core.ILiveLoginManager;
 
+import javax.inject.Inject;
+
 import izhibo.uestc.com.izhibo_and.component.DaggerUserInfoComponent;
-import izhibo.uestc.com.izhibo_and.component.UserInfoComponent;
 import izhibo.uestc.com.izhibo_and.modle.Constants;
 import izhibo.uestc.com.izhibo_and.modle.UserInfoModle;
 import izhibo.uestc.com.izhibo_and.module.UserInfoModule;
@@ -19,14 +20,15 @@ import izhibo.uestc.com.izhibo_and.uiinterface.LoginAndRegisterView;
 
 public class LoginAndRegisterPresenter {
     private LoginAndRegisterView loginAndRegisterView;
-    private UserInfoComponent component;
-    private UserInfoModle userInfoModle;
+    @Inject
+    UserInfoModle userInfoModle;
+
     public LoginAndRegisterPresenter(LoginAndRegisterView loginAndRegisterView) {
 
         this.loginAndRegisterView = loginAndRegisterView;
-         component = DaggerUserInfoComponent.builder()
+        DaggerUserInfoComponent.builder()
                 .userInfoModule(new UserInfoModule())
-                .build();
+                .build().inject(this);
     }
 
     public void goLogin(String account, String password) {
@@ -41,7 +43,6 @@ public class LoginAndRegisterPresenter {
 
             }
         });
-
 
 
     }
@@ -61,22 +62,22 @@ public class LoginAndRegisterPresenter {
 
 
     }
-    public void getUserInfoFromCache(Context context){
-        SharedPreferences sharedPreferences=context.getSharedPreferences(Constants.UESRINFO,0);
-        String userAccount=sharedPreferences.getString(Constants.UESACCOUNT,null);
-        userInfoModle = component.getUserInfo();
+
+    public void getUserInfoFromCache(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.UESRINFO, 0);
+        String userAccount = sharedPreferences.getString(Constants.UESACCOUNT, null);
         userInfoModle.setUserAccount(userAccount);
     }
-    public UserInfoModle getUserInfoModle()
-    {
+
+    public UserInfoModle getUserInfoModle() {
         return userInfoModle;
     }
+
     public void saveUserInfoToCache(String userAccount, Context context) {
-        userInfoModle = component.getUserInfo();
         userInfoModle.setUserAccount(userAccount);
-        SharedPreferences sharedPreferences=context.getApplicationContext().getSharedPreferences(Constants.UESRINFO,0);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(Constants.UESACCOUNT,userAccount);
+        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(Constants.UESRINFO, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.UESACCOUNT, userAccount);
         editor.commit();
     }
 }
