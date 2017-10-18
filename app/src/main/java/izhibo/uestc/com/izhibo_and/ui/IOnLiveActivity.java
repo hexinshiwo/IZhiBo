@@ -17,7 +17,7 @@ import com.tencent.livesdk.ILVLiveRoomOption;
 import izhibo.uestc.com.izhibo_and.R;
 import izhibo.uestc.com.izhibo_and.modle.Constants;
 import izhibo.uestc.com.izhibo_and.presenter.IOnlinePresenter;
-import izhibo.uestc.com.izhibo_and.uiinterface.IOnlineView;
+import izhibo.uestc.com.izhibo_and.uiInterface.IOnlineView;
 import izhibo.uestc.com.izhibo_and.widget.CommonUtils;
 
 /**

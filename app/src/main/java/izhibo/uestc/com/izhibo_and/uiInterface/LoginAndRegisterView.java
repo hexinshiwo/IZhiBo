@@ -1,4 +1,4 @@
-package izhibo.uestc.com.izhibo_and.uiinterface;
+package izhibo.uestc.com.izhibo_and.uiInterface;
 
 /**
  * Created by dongfanghong on 2017/10/8.
