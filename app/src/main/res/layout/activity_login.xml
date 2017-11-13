@@ -4,31 +4,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <EditText
-        android:id="@+id/edit_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="用户名"/>
-    <EditText
         android:id="@+id/edit_account"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="账号" />
 
     <EditText
         android:id="@+id/edit_password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="密码" />
 
     <Button
         android:id="@+id/btn_go_login"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="登录" />
 
     <Button
         android:id="@+id/btn_go_register"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="注册" />
 </LinearLayout>

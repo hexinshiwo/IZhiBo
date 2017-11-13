@@ -1,24 +1,20 @@
-package izhibo.uestc.com.izhibo_and.modle;
+package izhibo.uestc.com.izhibo_and.model;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import java.io.Serializable;
 
 /**
- * Created by dongfanghong on 2017/10/17.
+ * Created by dongfanghong on 2017/11/2.
  */
-
-public class BaseHttpModel {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class BaseModel implements Serializable {
     public int getCode() {
         return code;
     }
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public String getMsg() {
@@ -30,6 +26,5 @@ public class BaseHttpModel {
     }
 
     private int code;
-    private String data;
     private String msg;
 }

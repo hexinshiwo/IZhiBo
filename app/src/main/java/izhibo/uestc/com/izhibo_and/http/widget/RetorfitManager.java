@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import izhibo.uestc.com.izhibo_and.http.httpInterface.HttpService;
 import izhibo.uestc.com.izhibo_and.http.url.UrlManager;
 import okhttp3.OkHttpClient;
@@ -17,7 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetorfitManager {
     private Context mContext;
-    private OkHttpClient mClient = new OkHttpClient();
+    private OkHttpClient mClient = new OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS).build();//设置网络的超时时间为五秒
     private Retrofit mRetrofit = null;
     private GsonConverterFactory mFactory = GsonConverterFactory.create(new GsonBuilder().create());
     private volatile static RetorfitManager instance = null;

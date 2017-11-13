@@ -6,25 +6,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import izhibo.uestc.com.izhibo_and.R;
+import izhibo.uestc.com.izhibo_and.model.Constants;
 import izhibo.uestc.com.izhibo_and.presenter.LoginAndRegisterPresenter;
-import izhibo.uestc.com.izhibo_and.uiInterface.LoginAndRegisterView;
+import izhibo.uestc.com.izhibo_and.uiInterface.LoginView;
+import izhibo.uestc.com.izhibo_and.widget.CommonProgressDialog;
 
 /**
  * Created by dongfanghong on 2017/10/8.
  */
 
-public class LoginActivity extends AppCompatActivity implements LoginAndRegisterView, View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements LoginView, View.OnClickListener {
     private EditText accountEdit;
     private EditText passwordEdit;
-    private EditText userNameEdit;
     private Button loginBtn;
     private Button registerBtn;
     private LoginAndRegisterPresenter loginAndRegisterPresenter;
-    private String mStrAccount;
-    private String mStrPassword;
-    private String mStrUserName;
+    private CommonProgressDialog commonProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,21 +37,21 @@ public class LoginActivity extends AppCompatActivity implements LoginAndRegister
     private void initView() {
         accountEdit = (EditText) findViewById(R.id.edit_account);
         passwordEdit = (EditText) findViewById(R.id.edit_password);
-        userNameEdit=(EditText)findViewById(R.id.edit_user_name);
         loginAndRegisterPresenter = new LoginAndRegisterPresenter(this);
         loginAndRegisterPresenter.getUserInfoFromCache(this);
         accountEdit.setText(loginAndRegisterPresenter.getUserInfoModle().getUserAccount());
         loginBtn = (Button) findViewById(R.id.btn_go_login);
         registerBtn = (Button) findViewById(R.id.btn_go_register);
-        mStrAccount = accountEdit.getText().toString();
-        mStrPassword = passwordEdit.getText().toString();
-        mStrUserName=userNameEdit.getText().toString();
         loginBtn.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
+        commonProgressDialog = new CommonProgressDialog.Builder(this)
+                .setMessage(Constants.PROGRESSBAR_LOGIN)
+                .setCancelable(false)
+                .create();
     }
 
     private void saveUserInfo() {
-        loginAndRegisterPresenter.saveUserInfoToCache(mStrAccount,this);
+        loginAndRegisterPresenter.saveUserInfoToCache(accountEdit.getText().toString(), this);
     }
 
     @Override
@@ -67,23 +67,39 @@ public class LoginActivity extends AppCompatActivity implements LoginAndRegister
     }
 
     private void login() {
-        loginAndRegisterPresenter.goLogin(mStrAccount, mStrPassword);
+        loginAndRegisterPresenter.goLogin(accountEdit.getText().toString(), passwordEdit.getText().toString());
 
     }
 
     private void register() {
-        loginAndRegisterPresenter.goRegister(mStrAccount, mStrPassword,mStrUserName);
-
-    }
-
-    @Override
-    public void loginSuccess() {
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
+
     @Override
-    public void registerSuccess() {
+    public void loginSuccess() {
+        if (commonProgressDialog != null && commonProgressDialog.isShowing()) {
+            commonProgressDialog.dismiss();
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void setDialogVisibleBeforeHttp() {
+        //设置dialog可见
+        commonProgressDialog.show();
+    }
+
+    @Override
+    public void showToast(String msg) {
+        if (commonProgressDialog != null && commonProgressDialog.isShowing()) {
+            commonProgressDialog.dismiss();
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
 
     }
+
+
 }

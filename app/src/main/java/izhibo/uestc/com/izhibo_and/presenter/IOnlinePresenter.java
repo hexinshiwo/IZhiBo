@@ -3,7 +3,7 @@ package izhibo.uestc.com.izhibo_and.presenter;
 import javax.inject.Inject;
 
 import izhibo.uestc.com.izhibo_and.component.DaggerUserInfoComponent;
-import izhibo.uestc.com.izhibo_and.modle.UserInfoModle;
+import izhibo.uestc.com.izhibo_and.model.UserInfoModel;
 import izhibo.uestc.com.izhibo_and.module.UserInfoModule;
 import izhibo.uestc.com.izhibo_and.uiInterface.IOnlineView;
 
@@ -14,16 +14,16 @@ import izhibo.uestc.com.izhibo_and.uiInterface.IOnlineView;
 public class IOnlinePresenter {
     private IOnlineView iOnlineView;
     @Inject
-    UserInfoModle userInfoModle;
+    UserInfoModel userInfoModel;
 
     public IOnlinePresenter(IOnlineView iOnlineView) {
         this.iOnlineView = iOnlineView;
-        DaggerUserInfoComponent.builder().userInfoModule(new UserInfoModule()).build().inject(this);
+       DaggerUserInfoComponent.builder().userInfoModule(new UserInfoModule()).build().inject(this);
 
     }
 
     public void saveRoomNumberData(int roomNumber) {
-        userInfoModle.setRoomNumber(roomNumber);
+        userInfoModel.setRoomNumber(roomNumber);
         iOnlineView.changeUiStatue();
 
     }

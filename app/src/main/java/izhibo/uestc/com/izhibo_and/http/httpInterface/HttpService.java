@@ -1,6 +1,8 @@
 package izhibo.uestc.com.izhibo_and.http.httpInterface;
 
-import izhibo.uestc.com.izhibo_and.modle.BaseHttpModel;
+import izhibo.uestc.com.izhibo_and.model.BaseHttpModel;
+import izhibo.uestc.com.izhibo_and.model.LoginModel;
+import izhibo.uestc.com.izhibo_and.model.LoginUserDataModel;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -11,8 +13,12 @@ import rx.Observable;
 
 public interface HttpService {
     @GET("login")
-    Observable<BaseHttpModel>login(@Query("userAccount")String userAccount,@Query("userPassword")String userPassword);
-    @GET("register")
+    Observable<LoginModel>login(@Query("userAccount")String userAccount, @Query("userPassword")String userPassword);
+    @GET("Register")
     Observable<BaseHttpModel>register(@Query("userAccount")String userAccount,@Query("userPassword")String userPassword
             ,@Query("userName")String userName);
+    @GET("login")
+    Observable<LoginModel>loginGetToken(@Query("userAccount")String userAccount, @Query("userPassword")String userPassword);
+    @GET("login/userInfo")
+    Observable<LoginUserDataModel>getUserData(@Query("token")String token);
 }

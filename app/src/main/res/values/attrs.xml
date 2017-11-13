@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--背景的基调颜色-->
+    <attr name="check_base_color" format="color" />
+    <!--选中后钩的颜色-->
+    <attr name="check_tick_color" format="color" />
+    <!--圆的半径-->
+    <attr name="radius" format="dimension" />
+
+    <attr name="clickable" format="boolean" />
+    <declare-styleable name="confirmArcView">
+        <!--背景的基调颜色-->
+        <attr name="check_base_color" />
+        <!--选中后钩的颜色-->
+        <attr name="check_tick_color" />
+        <!--圆的半径-->
+        <attr name="radius" />
+
+        <attr name="clickable" />
+    </declare-styleable>
+    <declare-styleable name="cancelArcView">
+        <!--背景的基调颜色-->
+        <attr name="check_base_color" />
+        <!--选中后钩的颜色-->
+        <attr name="check_tick_color" />
+        <!--圆的半径-->
+        <attr name="radius" />
+
+        <attr name="clickable" />
+    </declare-styleable>
+</resources>
